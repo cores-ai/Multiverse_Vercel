@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Multiverse — Cloud Control Center",
+  title: "iq4u8- server management",
   description: "Autonomous multi-account Railway fleet balancer, GitHub ingestion pipeline, and encrypted environment variable vault.",
 };
 

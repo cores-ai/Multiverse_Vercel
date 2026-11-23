@@ -181,7 +181,7 @@ export default function OwnerManagementDashboard() {
   };
 
   useEffect(() => {
-    document.title = "Multiverse Cloud";
+    document.title = "iq4u8- server";
     fetchData();
     const interval = setInterval(fetchData, 8000);
 
@@ -866,7 +866,7 @@ export default function OwnerManagementDashboard() {
               </div>
               <div className="brand-text-block">
                 <span className="brand-title" style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '-0.01em', textTransform: 'lowercase', whiteSpace: 'nowrap' }}>
-                  multiverse cloud
+                  iq4u8- server
                 </span>
               </div>
             </div>
@@ -1178,7 +1178,7 @@ export default function OwnerManagementDashboard() {
             >
               <Menu size={16} />
             </button>
-            <span>multiverse cloud</span>
+            <span>iq4u8- server</span>
             <ChevronRight size={13} />
             <span>{getBreadcrumbSection()}</span>
             <ChevronRight size={13} />

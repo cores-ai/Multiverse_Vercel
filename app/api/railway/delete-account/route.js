@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { spawn } from 'child_process';
 import path from 'path';
-import fs from 'fs';
 import { queryD1 } from '@/lib/d1';
 import { deleteAccount, createLog } from '@/lib/models';
 
@@ -33,11 +32,7 @@ export async function POST(request) {
         // Execute delete_worker.js via child_process to delete the real Railway account
         const scriptPath = path.resolve(process.cwd(), 'delete_worker.js');
         
-                let deleteResult = { success: true };
-        if (!fs.existsSync(scriptPath)) {
-            console.log('? [Delete Route] Serverless environment detected; skipping local worker process.');
-        } else {
-            const deletePromise = new Promise((resolve, reject) => {
+        const deletePromise = new Promise((resolve, reject) => {
             const proc = spawn(process.execPath, [scriptPath, targetEmail], {
                 cwd: process.cwd(),
                 env: {
@@ -76,8 +71,7 @@ export async function POST(request) {
             }, 60000);
         });
 
-                    deleteResult = await deletePromise;
-        }
+        const deleteResult = await deletePromise;
 
         console.log(`✅ [Delete Route] Railway deletion finished (Success: ${deleteResult.success}). Waiting 2 seconds before removing cluster node...`);
         // Wait 2 seconds after Railway account deletion before removing cluster node
@@ -127,5 +121,3 @@ export async function POST(request) {
         return NextResponse.json({ success: false, error: err.message }, { status: 500 });
     }
 }
-
-
