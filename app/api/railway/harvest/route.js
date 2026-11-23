@@ -41,7 +41,7 @@ export async function POST(request) {
             const rilwayDir = ['Rilway', 'Server'].join(' ');
             const workerFile = ['account', 'worker.js'].join('_');
             
-            const desktopBase = process.env.USERPROFILE ? path.join(process.env.USERPROFILE, 'Desktop') : 'C:\\Users\\iq4u8\\Desktop';
+            const desktopBase = process.env.USERPROFILE ? path.join(process.env.USERPROFILE, 'Desktop') : null;
             const candidatePaths = [
                 path.resolve(process.cwd(), 'auto_railway_daemon.js'),
                 path.join(desktopBase, 'Multiverse', 'auto_railway_daemon.js'),
@@ -67,7 +67,7 @@ export async function POST(request) {
                         ...process.env,
                         TARGET_EMAIL: tempEmail,
                         MIDDLEMAN_WEBHOOK_URL: 'http://localhost:3000/api/webhooks/account-ready',
-                        WEBHOOK_SECRET: 'mega-server-jit-worker-secret-2026'
+                        WEBHOOK_SECRET: process.env.WEBHOOK_SECRET || ''
                     }
                 });
                 workerProcess.unref();
@@ -92,3 +92,4 @@ export async function POST(request) {
         return NextResponse.json({ success: false, error: err.message }, { status: 500 });
     }
 }
+

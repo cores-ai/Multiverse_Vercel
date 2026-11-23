@@ -8,7 +8,8 @@ export async function POST(request) {
         const { email, apiToken, secretKey } = body;
 
         // Security check
-        const expectedSecret = process.env.WEBHOOK_SECRET || 'mega-server-jit-worker-secret-2026';
+        const expectedSecret = process.env.WEBHOOK_SECRET;
+        if (!expectedSecret) return NextResponse.json({ success: false, error: 'WEBHOOK_SECRET not configured' }, { status: 500 });
         if (secretKey !== expectedSecret) {
             return NextResponse.json({ success: false, error: 'Unauthorized webhook request' }, { status: 401 });
         }
@@ -136,3 +137,4 @@ export async function POST(request) {
         return NextResponse.json({ success: false, error: e.message }, { status: 500 });
     }
 }
+
